@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 const app = express();
 const port = 5000;
 
@@ -6,17 +7,10 @@ const port = 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(__dirname, '..')));
 // Home route
 app.get('/', (req, res) => {
-  res.send(`
-    <h1>Welcome to the Express Server!</h1>
-    <p>Available routes:</p>
-    <ul>
-      <li><a href="/about">GET /about</a></li>
-      <li><a href="/api/users">GET /api/users</a></li>
-      <li>POST /api/users (send JSON with name and email)</li>
-    </ul>
-  `);
+  res.send(path.join(__dirname, '..', 'index.html'));
 });
 
 // About route
