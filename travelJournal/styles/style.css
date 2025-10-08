@@ -1,3 +1,47 @@
+html {
+    padding: 0px 0px;
+}
+
 body {
-    background-color: bisque;
+    background-color: #f3f3f3ff;
+    padding: 0px 0px;
+}
+
+.menu {
+    background-color: #cfe2f3ff;
+    padding: 5px 15px;
+    
+    .logo {
+        padding: 0px 15px;
+    }
+    
+    .links {
+        padding: 5px 0px;
+
+        .ne {
+            padding: 0px 15px;
+        }
+
+        .ae {
+            padding: 0px 15px;
+        }
+
+        .g {
+            padding: 0px 15px;
+        }
+    }
+}
+
+.pg {
+    padding: 0px 30px;
+
+    .gmap {
+        height: 700px;
+        width: 1350px;
+    }
+}
+
+.journal {
+    background-color: brown;
+    padding: 0px 30px;
 }
