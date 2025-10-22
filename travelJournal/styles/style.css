@@ -9,8 +9,6 @@ body {
 }
 
 .menu {
-    
-
     background-color: #cfe2f3ff;
     border: 0.2em solid rgb(179, 205, 229);
     padding: 0.5555555555555556em 1.6666666666666667em;
@@ -54,30 +52,48 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0.2em solid rgb(179, 205, 229);
+
     .coverLeft {
         border-radius: 1em;
         background-color: #c3a777ff;
         padding: 1em 1.5em;
         padding-right: 0;
+
         .pageLeft {
             border-radius: 1em;
             background-color: #f3f3f3ff;
             padding: 1em 3em;
             height: 30em;
             width: 18em;
+
+            #nickname {
+                font-family: Arial, Helvetica, sans-serif;
+                font-style: italic;
+            }
         }
     }
+
     .coverRight {
         border-radius: 1em;
         background-color: #c3a777ff;
         padding: 1em 1.5em;
         padding-left: 0;
+
         .pageRight {
             border-radius: 1em;
             background-color: #ffffffff;
             padding: 1em 3em;
             height: 30em;
             width: 18em;
+            place-content: center;
+
+            #paragraph {
+                font-family: Arial, Helvetica, sans-serif;
+                font-style: italic;
+                resize: none;
+                overflow-y: scroll;
+            }
         }
     }
 }
