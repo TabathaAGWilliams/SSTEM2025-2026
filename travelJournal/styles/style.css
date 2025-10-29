@@ -52,7 +52,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.2em solid rgb(179, 205, 229);
 
     .coverLeft {
         border-radius: 1em;

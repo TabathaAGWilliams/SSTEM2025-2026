@@ -41,6 +41,8 @@
         <div class="coverLeft">
             <div class="pageLeft">
                 <p>Coordinates: </p>
+                <input type="number" placeholder="00.0000" step="00.0001" max="180" min="-180">°X</input>
+                <input type="number" placeholder="00.0000" step="00.0001" max="90" min="-90">°Y</input>
                 <p>Country: </p>
                 <select id="country">
                     <option value="United States">United States</option>
@@ -284,11 +286,17 @@
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
                 <p>State: </p>
+                <input  type="text" autocomplete="country-name"></input>
                 <p>Date(s) of Stay: </p>
                 <input type="date"></input>
                 <p>Image(s): </p>
+                <input type="image"></input>
+                <p> </p>
                 <input type="text" id="nickname" placeholder="Type a nickname..." size="35"></input>
-                <input type="submit"></input>
+                <p> </p>
+                <input type="button" value="⭐"></input>
+                <input type="button" value="⚠️"></input>
+                <input type="submit" value="Save Entry"></input>
             </div>
         </div>
         <div class="coverRight">
