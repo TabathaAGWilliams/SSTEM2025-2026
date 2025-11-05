@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const path = require('cors');
 const bodyParse = require('body-parser');
 const bodyParser = require('body-parser');
+const { createTunnel } = require('tunnel-ssh');
 const app = express();
 const port = 5000;
 
@@ -11,12 +13,46 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //mysql connection
-const db = mysql.createConnection ({
-  host: 'localhost',
-  user: 'root',
-  password: 'something',
-  database: 'tavel_journal'
-})
+
+const sshConfig = {
+  host: 'sstem.cs.appstate.edu:22',
+  port: 22,
+  username: 'geltta',
+  password: process.env.SSH_PASSWORD,
+  dstHost: '127.0.0.1',
+  dstPort: 3306,
+  localHost: '127.0.0.1',
+  localPort: 3307
+
+}
+let db;
+let server;
+
+async function connectToDatabase() {
+  try {
+    const [server_instance, client] = await createTunnel ({}, {}, sshConfig);
+    server = server_instance;
+    console.log('SSH connection established!!!');
+
+    db = mysql.createConnection ({
+      host: '127.0.0.1',
+      user: '3307',
+      password: process.env.MYSQL_PASSWORD,
+      database: 'tavelJournal'
+    });
+    db.connect(err => {
+      if (err) {
+        console.error('MySQL connection error:', err);
+        throw err;
+      }
+      console.log('Connected to the database!!!!');
+    });
+
+  } catch (error) {
+      console.error('SSH tunnel error:', error);
+      throw error;
+    }
+}
 
 db.connect(err => {
   if (err) throw err;
