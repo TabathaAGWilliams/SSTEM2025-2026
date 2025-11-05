@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel Journal • Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root{
+      --sand:#c3a777;      /* from your journal cover */
+      --sky:#cfe2f3;       /* from your menu */
+      --paper:#f3f3f3;     /* your page bg */
+      --ink:#1f2937;       /* slate-800 */
+      --ink-2:#4b5563;     /* slate-600 */
+      --accent:#2b6cb0;    /* deep sky */
+      --danger:#dc2626;
+      --glass: rgba(255,255,255,.72);
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{padding:0}
+    body{
+      margin:0; padding:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background:#000;
+    }
+
+    /* ---------- Full-bleed background ---------- */
+    .bg{
+      position:fixed; inset:0; z-index:-2;
+      background-image:url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920&auto=format&fit=crop"); /* alpine ridge */
+      background-size:cover; background-position:center; filter:contrast(1.05) saturate(1.1);
+    }
+    .overlay{
+      position:fixed; inset:0; z-index:-1;
+      background: linear-gradient(120deg, rgba(5,20,30,.55), rgba(0,0,0,.35)),
+                  radial-gradient(1200px 600px at 85% 15%, rgba(207,226,243,.25), transparent 60%),
+                  radial-gradient(900px 500px at 10% 90%, rgba(195,167,119,.18), transparent 60%);
+      backdrop-filter: blur(2px);
+    }
+
+    /* ---------- Center layout ---------- */
+    .wrap{
+      min-height:100dvh; display:grid; place-items:center; padding:4vh 16px;
+    }
+
+    /* ---------- Card ---------- */
+    .card{
+      width:min(960px, 100%);
+      display:grid; grid-template-columns: 1.15fr 1fr; gap:0;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,.6);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px) saturate(120%);
+    }
+
+    /* Left: brand / mood */
+    .brand{
+      position:relative; padding:40px; color:white; isolation:isolate;
+      background: linear-gradient(160deg, rgba(14,28,45,.35), rgba(14,28,45,.0));
+    }
+    .brand .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+      padding:8px 12px; border-radius:999px; font-weight:600; letter-spacing:.2px;
+    }
+    .brand .badge svg{width:18px; height:18px}
+    .brand h1{
+      margin:20px 0 12px; font-size:clamp(28px, 4vw, 40px); line-height:1.1; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.3)
+    }
+    .brand p{margin:0; color:rgba(255,255,255,.92)}
+    .brand .tags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px}
+    .brand .tags span{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px}
+    .brand .footer-note{position:absolute; left:40px; right:40px; bottom:28px; display:flex; align-items:center; justify-content:space-between; opacity:.9}
+    .brand .logo{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px
+    }
+    .brand .logo .dot{width:10px; height:10px; border-radius:50%; background:var(--sand); box-shadow:0 0 0 4px rgba(195,167,119,.3)}
+
+    /* Right: form */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.9));
+      padding:42px; display:flex; flex-direction:column; justify-content:center; gap:18px;
+    }
+    .panel header h2{margin:0; font-size:24px}
+    .panel header p{margin:6px 0 0; color:var(--ink-2)}
+
+    form{margin-top:8px; display:grid; gap:14px}
+
+    .field{display:grid; gap:8px}
+    .control{position:relative}
+    .control input{
+      width:100%; padding:14px 44px 14px 44px; border-radius:12px; border:1px solid #e5e7eb; background:#fff;
+      font-size:16px; outline:none; transition:border-color .2s, box-shadow .2s;
+    }
+    .control input:focus{border-color:var(--accent); box-shadow:0 0 0 4px rgba(43,108,176,.12)}
+    .control svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:20px; height:20px; opacity:.6}
+
+    .toggle-eye{position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:0; padding:6px; cursor:pointer}
+
+    .meta{display:flex; align-items:center; justify-content:space-between}
+    .meta label{display:inline-flex; align-items:center; gap:10px; cursor:pointer; color:var(--ink-2)}
+    .meta input[type="checkbox"]{accent-color:var(--accent)}
+    .meta a{color:var(--accent); text-decoration:none}
+    .meta a:hover{text-decoration:underline}
+
+    .btn{
+      appearance:none; border:0; background:linear-gradient(135deg, var(--accent), #4c93e6);
+      color:#fff; font-weight:600; letter-spacing:.2px; padding:14px 16px; border-radius:12px; cursor:pointer;
+      box-shadow:0 10px 20px rgba(43,108,176,.25); transition: transform .06s ease, filter .2s ease;
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px)}
+
+    .alt{display:flex; align-items:center; gap:10px; justify-content:center; color:var(--ink-2); font-size:14px}
+    .alt a{color:var(--ink); font-weight:600}
+
+    .divider{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; color:#6b7280; font-size:12px; margin:4px 0}
+    .divider::before, .divider::after{content:""; height:1px; background:#e5e7eb}
+
+    .providers{display:flex; gap:10px}
+    .btn-ghost{flex:1; background:#fff; border:1px solid #e5e7eb; color:#111827; box-shadow:none}
+    .btn-ghost:hover{background:#f9fafb}
+
+    /* small status area */
+    .status{min-height:18px; font-size:13px}
+    .status.error{color:var(--danger)}
+    .status.ok{color:#047857}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px){
+      .card{grid-template-columns:1fr}
+      .brand{min-height:220px}
+    }
+
+    /* ---------- Optional: align to your existing classes palette ---------- */
+    /* You can reuse .menu, .journal colors elsewhere in your project */
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-labelledby="signin-title">
+      <!-- Brand / mood side -->
+      <div class="brand">
+        <span class="badge" aria-label="App tagline">
+          <!-- compass icon -->
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm0 2a8 8 0 110 16 8 8 0 010-16Zm3.95 4.05L14.5 14.5l-6.45 1.45L9.5 9.5l6.45-1.45Zm-5.9 5.9l1.9-1.9-2.8.63.9 1.27Z"/></svg>
+          Travel Journal
+        </span>
+        <h1 id="signin-title">Welcome back, explorer</h1>
+        <p>Capture memories, pin places, and turn moments into maps. Your journeys continue here.</p>
+        <div class="tags">
+          <span>#journaling</span><span>#itineraries</span><span>#photo-notes</span><span>#offline-ready</span>
+        </div>
+        <div class="footer-note">
+          <div class="logo"><span class="dot"></span> WanderLogbook</div>
+          <small>Tip: You can sign in with email or a provider</small>
+        </div>
+      </div>
+
+      <!-- Form side -->
+      <div class="panel">
+        <header>
+          <h2>Sign in</h2>
+          <p>New here? <a href="#" onclick="demoCreate(event)">Create an account</a></p>
+        </header>
+
+        <form id="form" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="control">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm0 2v.01L12 13l8-6.99V6H4zm0 12h16V8l-8 7L4 8v10z"/></svg>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="control">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1a6 6 0 00-6 6v3H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a6 6 0 00-6-6zm-4 9V7a4 4 0 118 0v3H8z"/></svg>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" minlength="6" required />
+              <button class="toggle-eye" aria-label="Show password" type="button" onclick="togglePassword()">
+                <svg id="eye" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-2.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="meta">
+            <label><input type="checkbox" id="remember"/> Remember me</label>
+            <a href="#" onclick="alert('Pretend we sent you a reset link ✉️'); return false;">Forgot password?</a>
+          </div>
+
+          <button class="btn" type="submit">Sign in</button>
+
+          <div class="divider">or continue with</div>
+          <div class="providers">
+            <button class="btn btn-ghost" type="button" onclick="provider('Google')">Google</button>
+            <button class="btn btn-ghost" type="button" onclick="provider('Apple')">Apple</button>
+          </div>
+
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+        </form>
+
+        <div class="alt">By signing in, you agree to our <a href="#" onclick="event.preventDefault(); alert('Terms preview')">Terms</a> & <a href="#" onclick="event.preventDefault(); alert('Privacy preview')">Privacy</a>.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('form');
+    const statusEl = document.getElementById('status');
