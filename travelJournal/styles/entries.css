@@ -1,0 +1,36 @@
+html {
+    padding: 0px 0px;
+}
+
+body {
+    background-color: #f3f3f3ff;
+    padding: 0 0;
+    margin: 0;
+}
+
+.menu {
+    background-color: #cfe2f3ff;
+    border: 0.2em solid rgb(179, 205, 229);
+    padding: 0.5555555555555556em 1.6666666666666667em;
+    
+    .logo {
+        height: 5em;
+        padding: 0 1.6666666666666667em;
+    }
+    
+    .links {
+        padding: 0.5555555555555556em 0;
+
+        .ne {
+            padding: 0 1.6666666666666667em;
+        }
+
+        .ae {
+            padding: 0 1.6666666666666667em;
+        }
+
+        .g {
+            padding: 0 1.6666666666666667em;
+        }
+    }
+}

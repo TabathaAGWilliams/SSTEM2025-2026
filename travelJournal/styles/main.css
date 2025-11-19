@@ -19,9 +19,12 @@ body {
     }
     
     .links {
+        display: flex;
+        justify-content: left;
         padding: 0.5555555555555556em 0;
 
         .ne {
+            justify-content: left;
             padding: 0 1.6666666666666667em;
         }
 
@@ -30,6 +33,10 @@ body {
         }
 
         .g {
+            padding: 0 1.6666666666666667em;
+        }
+
+        .lo {
             padding: 0 1.6666666666666667em;
         }
     }
@@ -46,6 +53,11 @@ body {
         height: 40em;
         width: 70em;
     }
+}
+
+.txt {
+    display: flex;
+    justify-content: center;
 }
 
 .journal {
